@@ -43,8 +43,7 @@ public class TreeView extends ViewPart implements IChangeModelListener {
 		viewer.setInput(treeController.listRoots());
 		treeController.addChangeModelListener(this);
 		
-		//GridLayoutFactory.fillDefaults().generateLayout(parent);
-	    getSite().setSelectionProvider(viewer);
+		
 		// the viewer field is an already configured TreeViewer
 		Tree tree =  viewer.getTree();
     
@@ -77,14 +76,15 @@ public class TreeView extends ViewPart implements IChangeModelListener {
 //			        Object selectedNode = thisSelection.getFirstElement();
 //			        viewer.setExpandedState(selectedNode,
 //			                !viewer.getExpandedState(selectedNode));
-			        
+				getSite().setSelectionProvider(viewer);
 				 IHandlerService handlerService = getSite().getService(IHandlerService.class);
 				 try {
 	                    handlerService.executeCommand("rcapp.command.EditNode", null);
 	                } catch (Exception ex) {
 	                    throw new RuntimeException(ex.getMessage());
 	             }
-					viewer.getControl().setRedraw(true);
+				 
+					
 				 
 			}
 			
