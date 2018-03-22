@@ -33,6 +33,7 @@ public class TreeView extends ViewPart implements IChangeModelListener {
 		viewer.setContentProvider(new TreeContentProvider());
 		viewer.getTree().setHeaderVisible(true);
 		//viewer.getTree().setLinesVisible(true);
+	
 		
 		TreeViewerColumn mainColumn = new TreeViewerColumn(viewer, SWT.NONE);
 		mainColumn.getColumn().setText("Node");
@@ -83,6 +84,7 @@ public class TreeView extends ViewPart implements IChangeModelListener {
 	                } catch (Exception ex) {
 	                    throw new RuntimeException(ex.getMessage());
 	             }
+					viewer.getControl().setRedraw(true);
 				 
 			}
 			
