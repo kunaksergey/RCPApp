@@ -6,13 +6,12 @@ import org.eclipse.ui.IPersistableElement;
 
 import rcpapp.model.Node;
 
-public class NodeEditorInput implements IEditorInput{
+public class NodeEditorInput implements IEditorInput	{
 	 private final Node node;
-	  
-	  
-	 public NodeEditorInput(Node node) {
+
+	public NodeEditorInput(Node node) {
 	       this.node = node;
-	}
+	 }
 	
 	    
 	public Node getNode(){
@@ -40,7 +39,7 @@ public class NodeEditorInput implements IEditorInput{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return node.getName();
 	}
 
 	@Override

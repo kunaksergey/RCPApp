@@ -68,7 +68,6 @@ public class LocalTreeService implements ITreeService {
 		// TODO Auto-generated method stub
 		Node parent=node.getParent();
 		parent.getChields().remove(node);
-		System.out.println();
 	}
 
 }

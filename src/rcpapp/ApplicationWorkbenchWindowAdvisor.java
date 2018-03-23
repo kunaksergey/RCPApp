@@ -5,6 +5,9 @@ import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+import org.eclipse.ui.part.EditorInputTransfer;
+
+import rcpapp.view.NodeDropListener;
 
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
@@ -24,5 +27,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setShowCoolBar(true);
         configurer.setShowStatusLine(false);
         configurer.setTitle("RCP App"); //$NON-NLS-1$
+        configurer.addEditorAreaTransfer(EditorInputTransfer.getInstance());
+        configurer.configureEditorAreaDropListener(new NodeDropListener(configurer.getWindow()));
     }
 }

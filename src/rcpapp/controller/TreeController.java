@@ -11,7 +11,7 @@ import rcpapp.service.LocalTreeService;
 public class TreeController {
 	private static TreeController treeController;
 	private ITreeService service = new LocalTreeService();
-	private List<IChangeModelListener> listeners=new ArrayList<>();
+	private List<IChangeModelListener> listeners = new ArrayList<>();
 
 	private TreeController() {
 
@@ -28,20 +28,34 @@ public class TreeController {
 		this.service = service;
 	}
 
-	public List<Node> listRoots() {
+	public List<Node> listNode() {
 		return service.getListRoots();
 	}
 
 	public void remove(Node node) {
 		service.remove(node);
-		changeModel();
+		changedModel();
 	}
 
-	private void changeModel() {
+	public void addAsChield(Node chield) {
+		if (chield.getParent() != null) {
+			chield.getParent().addChield(chield);
+			changedModel();
+		}
+	}
+
+	public void addAsChield(Node parent, Node chield) {
+		if (parent != null && chield != null)
+			chield.setParent(parent);
+		parent.addChield(chield);
+		changedModel();
+	}
+
+	public void changedModel() {
 		listeners.forEach(l -> l.changeModel());
 	}
-	
-	public void addChangeModelListener(IChangeModelListener listener){
+
+	public void addChangeModelListener(IChangeModelListener listener) {
 		listeners.add(listener);
 	}
 }

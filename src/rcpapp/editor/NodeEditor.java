@@ -12,41 +12,63 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
+import rcpapp.controller.TreeController;
+import rcpapp.model.Node;
+
 public class NodeEditor extends EditorPart {
 	public static final String ID = "rcpapp.view.NodeEditor";
 	private NodeEditorInput input;
+	private Node node;
+	Text text;
 
 	public NodeEditor() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void doSave(IProgressMonitor monitor) {
-		// TODO Auto-generated method stub
-		
-
-	}
-
-	@Override
-	public void doSaveAs() {
-		// TODO Auto-generated method stub
-		
 
 	}
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		// TODO Auto-generated method stub
-		this.input = (NodeEditorInput) input;
 		setSite(site);
 		setInput(input);
-		setPartName(this.input.getNode().fullPath()+"/"+this.input.getNode().getName());
+		this.input = (NodeEditorInput) input;
+		node = this.input.getNode();
+		setPartName(node.fullPath() + "/" + node.getName());
+	}
+
+	@Override
+	public void createPartControl(Composite parent) {
+		// TODO Auto-generated method stub
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 1;
+		parent.setLayout(layout);
+		new Label(parent, SWT.NONE).setText(this.input.getNode().getName());
+		text = new Text(parent, SWT.BORDER);
+		text.setText(node.getName());
+		text.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
+	}
+
+	@Override
+	public void doSave(IProgressMonitor monitor) {
+		// TODO Auto-generated method stub
+
+		// If node is NEW
+		if (!node.getParent().hasChield(node)) {
+			TreeController.getInstance().addAsChield(node);
+		}
+		node.setName(text.getText());
+		TreeController.getInstance().changedModel();
+	}
+
+	@Override
+	public void doSaveAs() {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public boolean isDirty() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -56,21 +78,8 @@ public class NodeEditor extends EditorPart {
 	}
 
 	@Override
-	public void createPartControl(Composite parent) {
-		// TODO Auto-generated method stub
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 1;
-		parent.setLayout(layout);
-		new Label(parent, SWT.NONE).setText(input.getNode().getName());
-		Text text = new Text(parent, SWT.BORDER);
-		text.setText(input.getNode().getName());
-		text.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
-	}
-
-	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
-
+		text.setFocus();
 	}
 
 }

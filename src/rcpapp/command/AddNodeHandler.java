@@ -1,15 +1,11 @@
 package rcpapp.command;
 
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
+public class AddNodeHandler extends AbstarctAddNodeHandler{
 
-public class AddNodeHandler extends AbstractHandler{
-	
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean isFolder() {
+		return false;
 	}
+	
 
 }

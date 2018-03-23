@@ -1,4 +1,4 @@
-package rcpapp.command;
+package rcpapp.view;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +15,8 @@ public class CommandStateProvider extends AbstractSourceProvider{
 	}
 
 	@Override
-	public Map getCurrentState() {
-		Map map = new HashMap(1);
+	public Map<String, Boolean> getCurrentState() {
+		Map<String, Boolean> map = new HashMap<String, Boolean>(1);
 		map.put(STATE, Boolean.TRUE);
         return map;
 	}

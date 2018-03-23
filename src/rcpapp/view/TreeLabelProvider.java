@@ -33,12 +33,9 @@ public class TreeLabelProvider extends LabelProvider implements IStyledLabelProv
 
 	@Override
 	public Image getImage(Object element) {
-		if (((Node) element).isFolder()) {
-			// return null;
-			return getResourceManager().createImage(FOLDER_DESCRIPTOR);
-		} else {
-			return getResourceManager().createImage(FILE_DESCRIPTOR);
-		}
+		return ((Node) element).isFolder() ? getResourceManager().createImage(FOLDER_DESCRIPTOR)
+				: getResourceManager().createImage(FILE_DESCRIPTOR);
+
 	}
 
 	private ImageDescriptor createImageDescriptor(String fileName) {

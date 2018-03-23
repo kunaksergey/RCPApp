@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.eclipse.jface.viewers.ISelection;
-import org.osgi.framework.hooks.service.ListenerHook.ListenerInfo;
+import org.eclipse.ui.IMemento;
+import org.eclipse.ui.IPersistableElement;
 
-public class Node{
+public class Node implements IPersistableElement{
 	private String name;
 	private Node parent;
 	private boolean isFolder;
 	private List<Node> chields=new ArrayList<>();
 	
+	public Node() {
+	}
+	public Node(String name) {
+		this.name = name;
+	}
 	public String getName() {
 		return name;
 	}
@@ -29,6 +34,11 @@ public class Node{
 	public boolean isFolder() {
 		return isFolder;
 	}
+	
+	public boolean hasChield(Node chield) {
+		return this.getChields().stream().filter(c->c.equals(chield)).findFirst().isPresent();
+	}
+	
 	public void setFolder(boolean isFolder) {
 		this.isFolder = isFolder;
 	}
@@ -56,21 +66,26 @@ public class Node{
 		ListIterator<String> itr=listPath.listIterator(listPath.size());
 		while(itr.hasPrevious()){
 			String previous=itr.previous();
-			System.out.println(previous);
-			if(!previous.equals("/")){
+				if(!previous.equals("/")){
 			path.append("/").append(previous);
 			}else{
 				path.append(previous);
 			}
-			System.out.println(path);
 		}
 		
 		return path.toString();
 	}
 	@Override
-	public String toString() {
-		return "Node ["+parent.getName()+": name=" + name +"]";
+	public void saveState(IMemento memento) {
+		// TODO Auto-generated method stub
+		
 	}
+	@Override
+	public String getFactoryId() {
+		return fullPath();
+	}
+
 	
+
 	
 }
