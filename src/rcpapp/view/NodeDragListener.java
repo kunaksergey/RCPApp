@@ -1,5 +1,12 @@
 package rcpapp.view;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.dnd.DND;
@@ -28,16 +35,20 @@ public class NodeDragListener implements DragSourceListener {
 
 	@Override
 	public void dragSetData(DragSourceEvent event) {
-		System.out.println("dragSetData");
 		if (EditorInputTransfer.getInstance().isSupportedType(event.dataType)) { // if
 																					// support
 																					// EditorInputTransfer
 			IStructuredSelection selection = viewer.getStructuredSelection();
-			Node node = (Node) selection.getFirstElement();
-			IEditorInput input = new NodeEditorInput(node);
-			EditorInputTransfer.EditorInputData data = EditorInputTransfer.createEditorInputData(NodeEditor.ID, input);
-			event.data = new EditorInputTransfer.EditorInputData[] { data };
-			System.out.println();
+			int i=0;
+			EditorInputTransfer.EditorInputData[] arrData=new EditorInputTransfer.EditorInputData[selection.size()];
+			Iterator<?> iterator=selection.iterator();
+			while(iterator.hasNext()){
+				Node node=(Node)iterator.next();
+				IEditorInput input = new NodeEditorInput(node);
+				arrData[i]=EditorInputTransfer.createEditorInputData(NodeEditor.ID, input);
+				i++;
+			}
+			event.data=arrData;
 		}
 	}
 

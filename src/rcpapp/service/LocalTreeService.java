@@ -70,4 +70,10 @@ public class LocalTreeService implements ITreeService {
 		parent.getChields().remove(node);
 	}
 
+	@Override
+	public Node getRoot() {
+		// TODO Auto-generated method stub
+		return root;
+	}
+
 }

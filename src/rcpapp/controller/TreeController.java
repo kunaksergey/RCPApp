@@ -32,9 +32,28 @@ public class TreeController {
 		return service.getListRoots();
 	}
 
+	public Node findNodeByFullPath(String fullPath) {
+		return findNodeByPath(getRoot(), fullPath.substring(1, fullPath.length()));
+	}
+
+	public Node findNodeByPath(Node node, String path) {
+		boolean isPoint = (path.indexOf("/") == -1) ? true : false; //true-it's target
+		String name=path.split("/")[0]; //name node 
+		Node currentNode=node.getChields()
+			.stream()
+			.filter(c->c.getName().equals(name))
+			.findFirst().orElse(null);
+		return (isPoint)?currentNode:findNodeByPath(currentNode,path.substring(name.length()+1, path.length()));
+		
+	}
+
 	public void remove(Node node) {
 		service.remove(node);
 		changedModel();
+	}
+
+	public Node getRoot() {
+		return service.getRoot();
 	}
 
 	public void addAsChield(Node chield) {

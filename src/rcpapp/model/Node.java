@@ -1,13 +1,15 @@
 package rcpapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 
-public class Node implements IPersistableElement{
+public class Node {
 	private String name;
 	private Node parent;
 	private boolean isFolder;
@@ -64,26 +66,17 @@ public class Node implements IPersistableElement{
 		}
 		
 		ListIterator<String> itr=listPath.listIterator(listPath.size());
+		itr.previous();
+		path.append("/");
 		while(itr.hasPrevious()){
 			String previous=itr.previous();
-				if(!previous.equals("/")){
-			path.append("/").append(previous);
-			}else{
-				path.append(previous);
+			path.append(previous);
+			path.append("/");
 			}
-		}
-		
+			path.append(name);
 		return path.toString();
 	}
-	@Override
-	public void saveState(IMemento memento) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public String getFactoryId() {
-		return fullPath();
-	}
+
 
 	
 

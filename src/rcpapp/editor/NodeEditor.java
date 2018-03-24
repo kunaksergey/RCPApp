@@ -32,7 +32,7 @@ public class NodeEditor extends EditorPart {
 		setInput(input);
 		this.input = (NodeEditorInput) input;
 		node = this.input.getNode();
-		setPartName(node.fullPath() + "/" + node.getName());
+		setPartName(node.fullPath());
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class NodeDropListener implements DropTargetListener {
 	@Override
 	public void dragOver(DropTargetEvent event) {
 		event.detail = DND.DROP_COPY;
-		event.feedback = DND.FEEDBACK_NONE;
+		event.feedback = DND.FEEDBACK_SELECT;
 	}
 
 	@Override
@@ -51,7 +51,6 @@ public class NodeDropListener implements DropTargetListener {
 
 		for (int i = 0; i < editorInputs.length; i++) {
 			IEditorInput input = editorInputs[i].input;
-
 			try {
 				page.openEditor(input, NodeEditor.ID);
 			} catch (PartInitException e) {

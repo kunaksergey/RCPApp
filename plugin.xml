@@ -306,6 +306,13 @@
               commandId="rcapp.command.EditNode">
         </handler>
     </extension>
+    <extension
+          point="org.eclipse.ui.elementFactories">
+       <factory
+             class="rcpapp.editor.NodeEditorInputFactory"
+             id="rcpapp.NodeEditorInputFactory">
+       </factory>
+    </extension>
    
 
 </plugin>

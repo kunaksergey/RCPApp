@@ -7,6 +7,7 @@ public interface ITreeService {
 	public Node createNewTree();
 	public void addChield(Node parent,Node chield);
 	public void removeChield(Node parent,Node chield);
+	public Node getRoot();
 	public void remove(Node node);
 	public List<Node> getListRoots();
 }
