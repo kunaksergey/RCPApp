@@ -8,7 +8,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.ISources;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
@@ -17,6 +19,7 @@ import rcpapp.model.Node;
 
 public class NodeEditor extends EditorPart {
 	public static final String ID = "rcpapp.view.NodeEditor";
+	private boolean dirty = true;
 	private NodeEditorInput input;
 	private Node node;
 	Text text;
@@ -57,6 +60,8 @@ public class NodeEditor extends EditorPart {
 		}
 		node.setName(text.getText());
 		TreeController.getInstance().changedModel();
+		setDirty(false);
+		monitor.done();
 	}
 
 	@Override
@@ -68,7 +73,7 @@ public class NodeEditor extends EditorPart {
 	@Override
 	public boolean isDirty() {
 		// TODO Auto-generated method stub
-		return true;
+		return dirty;
 	}
 
 	@Override
@@ -82,4 +87,11 @@ public class NodeEditor extends EditorPart {
 		text.setFocus();
 	}
 
+	private void setDirty(boolean dirty) {
+		if (this.dirty != dirty) {
+			this.dirty = dirty;
+			// Notify PROP_DIRTY changes to Workbench.
+			this.firePropertyChange(IEditorPart.PROP_DIRTY);
+		}
+	}
 }
