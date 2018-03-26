@@ -48,7 +48,7 @@ public class TreeView extends ViewPart implements IChangeModelListener {
 		Tree tree = viewer.getTree();
 
 		// Drag and Drop
-		int operations = DND.DROP_MOVE | DND.DROP_COPY | DND.DROP_LINK| DND.DROP_DEFAULT;
+		int operations =  DND.DROP_COPY | DND.DROP_MOVE ;
 		Transfer[] transferTypes = new Transfer[] { EditorInputTransfer.getInstance() };
 		viewer.addDragSupport(operations, transferTypes, new NodeDragListener(viewer));
 		// !Drag and Drop
